@@ -1,0 +1,122 @@
+
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Add user <span class="bg-success text-white rounded font-12 pl-5 pr-5"></span></mat-card-title>
+        <mat-horizontal-stepper labelPosition="bottom" #stepperposition>
+          <mat-step [stepControl]="positionfirstFormGroup">
+            <form [formGroup]="positionfirstFormGroup">
+              <ng-template matStepLabel>Coordonnées</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="First Name" formControlName="firstname" [(ngModel)]="this.firstname" required>
+              </mat-form-field>
+
+               <mat-form-field>
+                <input matInput placeholder="Last Name" formControlName="lastname" [(ngModel)]="this.lastname" required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Birthday</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="birthday" class="form-control"  [(ngModel)]="this.birthday" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+
+              <mat-form-field appearance="fill">
+                <mat-label>Gender</mat-label>
+                <mat-select [(ngModel)]="this.gender" formControlName="gender" [(value)]="gender" required>
+                  <mat-option value="Monsieur">Monsieur</mat-option>
+                  <mat-option value="Madame" >Madame</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email" [(ngModel)]="this.email" required>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Phone Number" formControlName="phone" [(ngModel)]="this.phone" required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Poste</mat-label>
+                <mat-select [(ngModel)]="this.poste" formControlName="poste" [(value)]="poste" required>
+                  <mat-option value="student">Student</mat-option>
+                  <mat-option value="teacher" >Teacher</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div>
+                <button mat-raised-button matStepperNext color="accent">Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <div *ngIf="this.poste === 'student'">
+            <mat-step [stepControl]="studentFormGroup" >
+              <form [formGroup]="studentFormGroup">
+                <ng-template matStepLabel>Detail</ng-template>
+                <mat-form-field appearance="fill">
+                  <mat-label>Speciality</mat-label>
+                  <mat-select [(ngModel)]="this.speciality" formControlName="speciality" [(value)]="speciality" required>
+                    <mat-option value="Licence fondamentale">Licence fondamentale</mat-option>
+                    <mat-option value="Préparatoire" >Préparatoire</mat-option>
+                    <mat-option value="Cycle d’ingénieur" >Cycle d’ingénieur</mat-option>
+
+
+                  </mat-select>
+                </mat-form-field>
+                <div class="button-row">
+                  <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                  <button mat-raised-button color="accent" (click)="createStudent();" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              You are now done.
+              <div class="button-row m-t-10">
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="warn" (click)="stepperposition.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </div>
+          <div *ngIf="this.poste === 'teacher'">
+            <mat-step [stepControl]="teacherFormGroup" >
+              <form [formGroup]="teacherFormGroup">
+                <ng-template matStepLabel>Detail</ng-template>
+                <mat-form-field appearance="fill">
+                  <mat-label>Matiere</mat-label>
+                  <mat-select [(ngModel)]="this.matiere" formControlName="matiere" [(value)]="matiere" required>
+                    <mat-option value="Applications WEB">Applications WEB</mat-option>
+                    <mat-option value="Applications mobiles" >Applications mobiles</mat-option>
+
+
+                  </mat-select>
+                </mat-form-field>
+                <div class="button-row">
+                  <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                  <button mat-raised-button color="accent" (click)="createTeacher();" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              You are now done.
+              <div class="button-row m-t-10">
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="warn" (click)="stepperposition.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </div>
+
+        </mat-horizontal-stepper>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+
+
+<router-outlet></router-outlet>
